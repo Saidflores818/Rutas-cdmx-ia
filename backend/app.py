@@ -89,5 +89,8 @@ def internal_error(error):
     return jsonify({'error': 'Error interno del servidor'}), 500
 
 if __name__ == '__main__':
-    logger.info("🚀 Iniciando servidor Flask en puerto 5001...")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5001))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    logger.info(f"🚀 Iniciando servidor Flask en puerto {port}...")
+    app.run(host='0.0.0.0', port=port, debug=debug)
