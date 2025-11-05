@@ -15,7 +15,7 @@ import RoutesList from './components/Routes/RoutesList';
 import MobileViewToggle from './components/UI/MobileViewToggle';
 // Hooks personalizados
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { useGeolocation } from './hooks/useGeolocation';  // ✅ BIEN
+import { useGeolocation } from './hooks/useGeoLocation';  // ✅ BIEN
 
 
 // Services
