@@ -1,36 +1,21 @@
 // frontend/src/components/UI/MobileViewToggle.jsx
-
 import React from 'react';
 
+/**
+ * Toggle simplificado para móvil
+ * Solo se muestra en móvil cuando hay rutas
+ * Opción principal: Solo Mapa (para ocultar el drawer)
+ */
 const MobileViewToggle = ({ viewMode, onViewChange, routesCount }) => {
+  // No mostrar si no hay rutas
   if (routesCount === 0) return null;
 
+  return null; // Deshabilitado por ahora, el drawer es automático
+  
+  // Si quieres mantener el toggle, descomenta esto:
+  /*
   return (
     <div className="mobile-view-toggle">
-      <button
-        className={`toggle-btn ${viewMode === 'vertical' ? 'active' : ''}`}
-        onClick={() => onViewChange('vertical')}
-        title="Vista vertical"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <rect x="4" y="4" width="16" height="7" rx="1" />
-          <rect x="4" y="13" width="16" height="7" rx="1" />
-        </svg>
-        <span>Vertical</span>
-      </button>
-
-      <button
-        className={`toggle-btn ${viewMode === 'horizontal' ? 'active' : ''}`}
-        onClick={() => onViewChange('horizontal')}
-        title="Vista horizontal"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <rect x="4" y="4" width="7" height="16" rx="1" />
-          <rect x="13" y="4" width="7" height="16" rx="1" />
-        </svg>
-        <span>Horizontal</span>
-      </button>
-
       <button
         className={`toggle-btn ${viewMode === 'map-only' ? 'active' : ''}`}
         onClick={() => onViewChange('map-only')}
@@ -41,8 +26,21 @@ const MobileViewToggle = ({ viewMode, onViewChange, routesCount }) => {
         </svg>
         <span>Mapa</span>
       </button>
+      
+      <button
+        className={`toggle-btn ${viewMode === 'vertical' ? 'active' : ''}`}
+        onClick={() => onViewChange('vertical')}
+        title="Ver rutas"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="4" y="4" width="16" height="7" rx="1" />
+          <rect x="4" y="13" width="16" height="7" rx="1" />
+        </svg>
+        <span>Rutas</span>
+      </button>
     </div>
   );
+  */
 };
 
 export default MobileViewToggle;
