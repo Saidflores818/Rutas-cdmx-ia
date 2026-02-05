@@ -6,8 +6,9 @@ export const GOOGLE_MAPS_LIBRARIES = ["places", "geometry"];
 
 export const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api/v1/ruta_transporte';
 
-export const BACKEND_HEALTH_URL = 'http://localhost:5001/api/v1/health';
-
+export const BACKEND_HEALTH_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace('/ruta_transporte', '/health')
+  : 'http://localhost:5001/api/v1/health';
 export const TAXI_COST_ESTIMATE = 90;
 
 export const MAP_CONTAINER_STYLE = { 
