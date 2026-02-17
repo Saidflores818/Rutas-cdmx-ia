@@ -159,7 +159,49 @@ body {
   cursor: not-allowed;
   box-shadow: none;
 }
+/* ========================================
+   BOTONES SECUNDARIOS (RESULTADOS)
+   ======================================== */
+.results-actions {
+  display: flex;
+  gap: 1rem; /* Espacio entre botones */
+  margin-bottom: 2rem; /* Separación del primer resultado */
+  flex-wrap: wrap; /* Se adaptan si la pantalla es muy estrecha */
+}
 
+/* Estilo base para todos los botones de acción */
+.action-btn {
+  flex: 1; /* Intentan ocupar el mismo ancho */
+  background: transparent; /* Fondo transparente */
+  border: 1px solid var(--fg-primary); /* Borde fino del color del tema */
+  color: var(--fg-primary); /* Texto del color del tema */
+  padding: 1rem 0.5rem;
+  font-size: 0.65rem; /* Tipografía pequeña y técnica */
+  font-weight: 700;
+  letter-spacing: 0.15em; /* Espaciado amplio premium */
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 110px; /* Evita que se aplasten demasiado en móviles pequeños */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Espacio si decides dejar iconos */
+}
+
+/* Efecto Hover: Inversión de colores */
+.action-btn:hover {
+  background: var(--fg-primary);
+  color: var(--bg-primary);
+}
+
+/* Aseguramos que los colores viejos no sobrevivan */
+.whatsapp-btn, .export-btn, .copy-btn {
+  background-color: transparent !important;
+  color: var(--fg-primary) !important;
+  box-shadow: none !important;
+}
 /* ========================================
    HEADER: DISEÑO EDITORIAL
    ======================================== */
@@ -295,18 +337,26 @@ body {
    ======================================== */
 .map-results-layout {
   display: flex;
-  flex-direction: column; /* Móvil: Mapa arriba, resultados abajo */
+  flex-direction: column; 
   gap: var(--space-md);
-  flex: 1;
-  padding-bottom: var(--space-lg);
+  flex: 1; /* Obliga al layout a llenar todo el espacio que sobra del header/search */
+  padding-bottom: var(--space-md);
 }
 
 .map-container-fixed {
   width: 100%;
-  height: 45dvh; /* Móvil: Mapa toma un poco menos de la mitad de la pantalla */
-  min-height: 300px;
+  min-height: 45dvh; /* El mapa nunca será más pequeño que esto en móvil */
+  flex: 1; /* LA MAGIA: Si no hay resultados abajo, el mapa se expande como un resorte */
   background: var(--bg-secondary);
   border: var(--ui-border);
+  position: relative; /* Importante para que el iframe/canvas de Google Maps se posicione bien */
+  overflow: hidden; /* Evita que el mapa se desborde si calcula mal su tamaño */
+}
+
+/* Aseguramos que el div interno de React/Google Maps llene el nuevo espacio elástico */
+.map-container-fixed > div {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .results-container {
@@ -458,10 +508,20 @@ body {
    ======================================== */
 .search-history { width: 100%; margin-top: 2rem; }
 .history-header {
-  display: flex; justify-content: space-between; align-items: baseline;
-  border-bottom: var(--ui-border); padding-bottom: 0.5rem; margin-bottom: 1rem;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: baseline;
+  border-bottom: var(--ui-border);
+  padding-bottom: 0.5rem; 
+  margin-bottom: 1rem;
 }
-.section-title { font-size: 0.7rem; letter-spacing: 0.15em; font-weight: 600; color: var(--fg-secondary); }
+
+.section-title 
+{ font-size: 0.7rem; 
+letter-spacing: 0.15em; 
+font-weight: 600; 
+color: var(--fg-secondary); }
+
 .history-row {
   display: flex; justify-content: space-between; padding: 1rem 0;
   border-bottom: 1px solid var(--border-fine); cursor: pointer; transition: opacity 0.2s;
