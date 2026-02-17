@@ -147,7 +147,58 @@ body {
   width: 100%;
   margin-top: var(--space-md);
 }
+/* ========================================
+   RESULTS HEADER & GHOST BUTTONS
+   ======================================== */
+.results-header {
+  padding: 0 0 1.5rem 0;
+  border-bottom: 1px solid var(--border-fine);
+  margin-bottom: 1rem;
+}
 
+/* El título ahora parece una etiqueta de sistema experto */
+.results-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Contenedor de los botones */
+.results-actions {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* La magia del botón minimalista premium */
+.action-ghost-btn {
+  flex: 1; /* Hace que los tres botones midan exactamente lo mismo */
+  background: transparent;
+  border: 1px solid var(--border-fine); /* Borde súper sutil */
+  color: var(--fg-primary);
+  padding: 0.8rem 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+/* Efecto hover: Inversión de color brutalista */
+.action-ghost-btn:hover {
+  border-color: var(--fg-primary);
+  background: var(--fg-primary);
+  color: var(--bg-primary);
+}
+
+/* Efecto al presionar (Active) para dar feedback en móvil */
+.action-ghost-btn:active {
+  transform: scale(0.98);
+}
 .primary-action:hover:not(:disabled) {
   opacity: 0.85;
   transform: translateY(-1px);
@@ -158,49 +209,6 @@ body {
   color: var(--btn-disabled-fg);
   cursor: not-allowed;
   box-shadow: none;
-}
-/* ========================================
-   BOTONES SECUNDARIOS (RESULTADOS)
-   ======================================== */
-.results-actions {
-  display: flex;
-  gap: 1rem; /* Espacio entre botones */
-  margin-bottom: 2rem; /* Separación del primer resultado */
-  flex-wrap: wrap; /* Se adaptan si la pantalla es muy estrecha */
-}
-
-/* Estilo base para todos los botones de acción */
-.action-btn {
-  flex: 1; /* Intentan ocupar el mismo ancho */
-  background: transparent; /* Fondo transparente */
-  border: 1px solid var(--fg-primary); /* Borde fino del color del tema */
-  color: var(--fg-primary); /* Texto del color del tema */
-  padding: 1rem 0.5rem;
-  font-size: 0.65rem; /* Tipografía pequeña y técnica */
-  font-weight: 700;
-  letter-spacing: 0.15em; /* Espaciado amplio premium */
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 110px; /* Evita que se aplasten demasiado en móviles pequeños */
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem; /* Espacio si decides dejar iconos */
-}
-
-/* Efecto Hover: Inversión de colores */
-.action-btn:hover {
-  background: var(--fg-primary);
-  color: var(--bg-primary);
-}
-
-/* Aseguramos que los colores viejos no sobrevivan */
-.whatsapp-btn, .export-btn, .copy-btn {
-  background-color: transparent !important;
-  color: var(--fg-primary) !important;
-  box-shadow: none !important;
 }
 /* ========================================
    HEADER: DISEÑO EDITORIAL

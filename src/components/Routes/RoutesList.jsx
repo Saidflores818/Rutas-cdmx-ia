@@ -16,29 +16,32 @@ const RoutesList = ({
   return (
     <div className="results-container">
       <div className="results-header">
-        <h2>Rutas Clasificadas ({routes.length})</h2>
+        {/* Cambiamos el h2 genérico por una clase técnica */}
+        <div className="results-title">
+          RUTAS CLASIFICADAS ({routes.length})
+        </div>
         
         <div className="results-actions">
           <button 
-            className="action-btn whatsapp-btn"
+            className="action-ghost-btn"
             onClick={onShare}
             title="Compartir por WhatsApp"
           >
-            WhatsApp
+            WHATSAPP
           </button>
           <button 
-            className="action-btn export-btn"
+            className="action-ghost-btn"
             onClick={onExport}
             title="Abrir en Google Maps"
           >
-            Exportar
+            EXPORTAR
           </button>
           <button 
-            className="action-btn copy-btn"
+            className="action-ghost-btn"
             onClick={onCopyLink}
             title="Copiar enlace"
           >
-            Copiar
+            COPIAR
           </button>
         </div>
       </div>
