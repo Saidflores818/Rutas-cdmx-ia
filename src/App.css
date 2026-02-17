@@ -402,6 +402,33 @@ body {
   padding: 0.2rem 0.5rem;
   text-transform: uppercase;
 }
+/* ========================================
+   INDICADORES SECUNDARIOS (Texto ultra fino)
+   ======================================== */
+.route-indicators-minimal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.indicator-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+}
+
+.indicator-text.warning { color: var(--danger); }
+.indicator-text.ai-score { opacity: 0.5; }
+
+/* Contenedor del detalle de ruta expandido */
+.route-details-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--border-fine);
+  cursor: default; /* Evita que parezca clickable el texto interno */
+}
 
 /* Resumen de ruta (Texto sutil abajo) */
 .route-steps-summary {
