@@ -1,7 +1,7 @@
 // frontend/src/components/UI/LoadingSpinner.jsx
 
 import React from 'react';
-import './LoadingSpinner.css';
+
 
 const LoadingSpinner = ({ message = 'PROCESSING DATA' }) => {
   return (
