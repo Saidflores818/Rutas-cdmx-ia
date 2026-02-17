@@ -5,13 +5,18 @@
    ======================================== */
 
 :root {
-  /* 1. Paleta Base - Alto Contraste */
+  /* 1. MODO CLARO (Default) */
   --bg-primary: #ffffff;
-  --bg-secondary: #f8f8f8;
-  --fg-primary: #000000;
+  --bg-secondary: #f4f5f7; /* Gris muy suave para contraste */
+  --fg-primary: #111111;
   --fg-secondary: #666666;
-  --accent: #000000;
-  --border-fine: #e5e5e5;
+  --border-fine: #e5e7eb;
+  
+  /* Botones Claro */
+  --btn-bg: #111111;
+  --btn-fg: #ffffff;
+  --btn-disabled-bg: #e5e7eb;
+  --btn-disabled-fg: #9ca3af;
   
   /* Status */
   --safe: #000000;
@@ -22,34 +27,43 @@
   --ls-tight: -0.03em;
   --ls-wide: 0.15em;
 
-  /* 3. Variables Fluidas (Responsividad Automática) */
-  /* Espaciados: clamp(MIN, VALOR_IDEAL, MAX) */
+  /* 3. Variables Fluidas */
   --space-sm: clamp(0.5rem, 1vw, 1rem);
   --space-md: clamp(1rem, 2vw, 2rem);
   --space-lg: clamp(1.5rem, 4vw, 3rem);
   
-  /* Tamaños de texto fluidos */
   --text-h1: clamp(1.2rem, 4vw, 1.8rem);
   --text-base: clamp(0.875rem, 1.5vw, 1rem);
-  --text-metric: clamp(1.2rem, 3vw, 1.8rem); /* Para que el costo/tiempo no se rompa en iPhone */
+  --text-metric: clamp(1.2rem, 3vw, 1.8rem);
 
-  /* Elevación y Líneas */
   --ui-border: 1px solid var(--border-fine);
   --max-width: 1440px;
 }
 
-/* Modo Oscuro (Variables Override) */
-.dark-mode {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
+/* ========================================
+   MODO OSCURO (Dark Mode Override)
+   ======================================== */
+/* Soporta la clase tanto en el body como en el wrapper principal */
+.dark-mode, 
+body.dark-mode, 
+.main-content-wrapper.dark-mode {
+  --bg-primary: #000000; /* Negro profundo OLED */
+  --bg-secondary: #1c1c1e; /* Gris de superficie iOS (Crucial para tarjetas) */
   --fg-primary: #ffffff;
-  --fg-secondary: #a0a0a0;
-  --accent: #ffffff;
-  --border-fine: #1a1a1a;
+  --fg-secondary: #a1a1aa;
+  --border-fine: #333336; /* Borde visible pero sutil */
+  
+  /* Botones Oscuro */
+  --btn-bg: #ffffff;
+  --btn-fg: #000000;
+  --btn-disabled-bg: #2c2c2e; /* Gris oscuro para botón inactivo */
+  --btn-disabled-fg: #636366; /* Texto oscuro para botón inactivo */
+  
+  --safe: #ffffff;
 }
 
 /* ========================================
-   RESET & BASE
+   RESET & BASE (Aplicación estricta de variables)
    ======================================== */
 * { 
   box-sizing: border-box; 
@@ -59,7 +73,7 @@
 
 html {
   font-size: 16px;
-  -webkit-text-size-adjust: 100%; /* Previene zoom automático en iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -69,19 +83,81 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ========================================
-   LAYOUT PRINCIPAL
-   ======================================== */
+/* Garantizar que el wrapper herede correctamente */
 .main-content-wrapper {
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--space-md);
-  min-height: 100dvh; /* dvh = Dynamic Viewport Height (Perfecto para Safari iOS) */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+/* ========================================
+   CORRECCIÓN DE INPUTS Y PLACEHOLDERS
+   ======================================== */
+.search-interface {
+  background-color: var(--bg-secondary);
+  padding: var(--space-md);
+  border: var(--ui-border);
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border-fine);
+  background-color: transparent;
+  padding: 1rem 0;
+  font-size: var(--text-base);
+  color: var(--fg-primary);
+  transition: border-color 0.3s;
+}
+
+/* ¡El fix para que los textos fantasma se vean! */
+.search-input::placeholder {
+  color: var(--fg-secondary);
+  opacity: 0.8;
+}
+
+.search-input:-ms-input-placeholder { color: var(--fg-secondary); }
+.search-input::-ms-input-placeholder { color: var(--fg-secondary); }
+
+/* ========================================
+   CORRECCIÓN DE BOTONES
+   ======================================== */
+.primary-action {
+  background-color: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  padding: 1.2rem 2.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-top: var(--space-md);
+}
+
+.primary-action:hover:not(:disabled) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.primary-action:disabled {
+  background-color: var(--btn-disabled-bg);
+  color: var(--btn-disabled-fg);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* ========================================
@@ -239,63 +315,101 @@ body {
   flex-direction: column;
   gap: 1rem;
 }
-
 /* ========================================
-   ROUTE CARDS & MÉTRICAS (PREVENIR OVERLAP)
+   ROUTE LIST ITEMS (Ultra-Compact Premium)
    ======================================== */
-.route-card {
-  border: var(--ui-border);
-  padding: var(--space-md);
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  background: var(--bg-primary);
-}
-
-.route-card:hover {
-  border-color: var(--fg-primary);
-  transform: translateY(-2px);
-}
-
-.route-card.selected {
-  background: var(--fg-primary);
-  color: var(--bg-primary);
-}
-
-.route-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: var(--ls-tight);
-}
-
-/* Uso de CSS Grid en las métricas para que se adapten a la pantalla */
-.route-metrics {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-  align-items: end;
-}
-
-.metric {
+.route-list-item {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border-fine);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  transition: opacity 0.2s ease, padding-left 0.3s ease;
+  background: transparent;
 }
 
-.metric-value {
-  font-size: var(--text-metric); /* Crece y encoge con la pantalla */
+/* Efecto hover sutil solo para desktop */
+@media (min-width: 1024px) {
+  .route-list-item:hover { opacity: 0.6; }
+}
+
+/* Estado Seleccionado: Línea arquitectónica a la izquierda */
+.route-list-item.is-selected {
+  padding-left: 1rem;
+  border-left: 3px solid var(--fg-primary);
+}
+
+/* Contenedor principal de datos */
+.route-main-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap; /* En iPhone muy pequeño, los badges bajan suavemente */
+  gap: 0.5rem;
+}
+
+/* Métricas en una sola línea (Adiós al Grid pesado) */
+.route-metrics-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.metric-time {
+  font-size: clamp(1.4rem, 4vw, 1.8rem); /* Gigante y claro */
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.2;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg-primary);
+  line-height: 1;
 }
 
-.metric-label {
-  font-size: 0.6rem;
+.metric-dot {
+  font-size: 1rem;
+  color: var(--fg-secondary);
+  opacity: 0.5;
+}
+
+.metric-cost {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
+  color: var(--fg-secondary);
+}
+
+/* Badges minimalistas */
+.route-badges {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.badge-premium {
+  background: var(--fg-primary);
+  color: var(--bg-primary);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.2rem 0.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
-  margin-top: 0.2rem;
 }
 
+.badge-outline {
+  border: 1px solid var(--border-fine);
+  color: var(--fg-secondary);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+}
+
+/* Resumen de ruta (Texto sutil abajo) */
+.route-steps-summary {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
 /* ========================================
    VALUE INDICATOR (SAVINGS)
    ======================================== */

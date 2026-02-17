@@ -16,7 +16,7 @@ const RoutesList = ({
   return (
     <div className="results-container">
       <div className="results-header">
-        <h2>📊 Rutas Clasificadas ({routes.length})</h2>
+        <h2>Rutas Clasificadas ({routes.length})</h2>
         
         <div className="results-actions">
           <button 
@@ -24,21 +24,21 @@ const RoutesList = ({
             onClick={onShare}
             title="Compartir por WhatsApp"
           >
-            📱 WhatsApp
+            WhatsApp
           </button>
           <button 
             className="action-btn export-btn"
             onClick={onExport}
             title="Abrir en Google Maps"
           >
-            🗺️ Exportar
+            Exportar
           </button>
           <button 
             className="action-btn copy-btn"
             onClick={onCopyLink}
             title="Copiar enlace"
           >
-            🔗 Copiar
+            Copiar
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 // frontend/src/components/UI/SavingsBanner.jsx
-
+/*
 import React, { useState } from 'react';
 
 const SavingsBanner = ({ savings }) => {
@@ -25,4 +25,4 @@ const SavingsBanner = ({ savings }) => {
   );
 };
 
-export default SavingsBanner;
+export default SavingsBanner;*/
