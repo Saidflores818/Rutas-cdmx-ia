@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { formatDate, truncateText } from '../../utils/helpers';
-import './SearchHistory.css'; // Asegúrate de vincular los estilos refinados
+
 
 const SearchHistory = ({ 
   history, 
