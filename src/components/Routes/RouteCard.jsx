@@ -16,19 +16,6 @@ const RouteCard = ({
       onClick={onClick}
     >
       <div className="route-header">
-        <h3>
-          🛣️ Ruta {index + 1}
-          {isBest && (
-            <span className="optimal-badge">
-              ⭐ ÓPTIMA IA
-            </span>
-          )}
-          {route.eco_friendly && (
-            <span className="eco-badge" title="Ruta ecológica">
-              🌱
-            </span>
-          )}
-        </h3>
         
         {route.distance && (
           <span className="route-distance">{route.distance}</span>
@@ -38,32 +25,30 @@ const RouteCard = ({
       <div className="route-metrics">
         <div className="metric">
           <div className="metric-value time">{route.predicted_duration_text}</div>
-          <div className="metric-label">⏱️ Tiempo</div>
+          <div className="metric-label">Tiempo</div>
         </div>
         <div className="metric">
           <div className="metric-value cost">{route.fare_text}</div>
-          <div className="metric-label">💰 Costo</div>
+          <div className="metric-label">Costo</div>
         </div>
         <div className="metric">
           <div className="metric-value transfers">{route.transfers}</div>
-          <div className="metric-label">🔄 Transbordos</div>
+          <div className="metric-label">Transbordos</div>
         </div>
       </div>
 
       <div className="route-indicators">
         {route.rush_hour && (
           <span className="indicator rush-hour" title="Esta ruta puede tener más tráfico en hora pico">
-            🚦 Hora pico
+            Hora pico
           </span>
         )}
         {route.accessible && (
           <span className="indicator accessible" title="Ruta con pocos transbordos, más accesible">
-            ♿ Accesible
+            Accesible
           </span>
         )}
-        <span className="indicator score" title={`Score de conveniencia calculado por IA: ${route.score}/1.0`}>
-          📊 Score: {route.score}
-        </span>
+
       </div>
 
       {isSelected && <RouteDetails steps={route.steps} />}

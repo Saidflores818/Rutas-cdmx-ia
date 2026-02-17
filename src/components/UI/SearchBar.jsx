@@ -15,42 +15,50 @@ const SearchBar = ({
   disabled
 }) => {
   return (
-    <div className="search-overlay">
-      <SearchBox 
-        placeholder="📍 Origen (Punto de Partida)"
-        onPlaceSelect={onOriginSelect} 
-      />
-      <SearchBox 
-        placeholder="🏁 Destino (Punto de Llegada)"
-        onPlaceSelect={onDestinationSelect} 
-      />
-      
-      <button 
-        className="location-button"
-        onClick={onGetLocation}
-        disabled={loading}
-        title="Usar mi ubicación actual"
-      >
-        📍 Mi ubicación
-      </button>
-      
-      <button 
-        className="search-button"
-        disabled={disabled || loading} 
-        onClick={onSearch} 
-      >
-        {loading ? '⏳ Buscando...' : '🔍 Buscar Ruta'}
-      </button>
+    <div className="search-interface">
+      <div className="inputs-group">
+        <div className="input-field">
+          <SearchBox 
+            placeholder="STARTING POINT"
+            onPlaceSelect={onOriginSelect} 
+          />
+          <button 
+            className="action-link"
+            onClick={onGetLocation}
+            disabled={loading}
+          >
+            USE CURRENT LOCATION
+          </button>
+        </div>
 
-      {(origin || destination) && (
+        <div className="input-divider" />
+
+        <div className="input-field">
+          <SearchBox 
+            placeholder="FINAL DESTINATION"
+            onPlaceSelect={onDestinationSelect} 
+          />
+        </div>
+      </div>
+      
+      <div className="search-actions">
         <button 
-          className="clear-button"
-          onClick={onClear}
-          title="Limpiar búsqueda"
+          className="primary-action"
+          disabled={disabled || loading} 
+          onClick={onSearch} 
         >
-          🗑️ Limpiar
+          {loading ? 'CALCULATING...' : 'FIND OPTIMAL ROUTE'}
         </button>
-      )}
+
+        {(origin || destination) && (
+          <button 
+            className="secondary-action"
+            onClick={onClear}
+          >
+            RESET
+          </button>
+        )}
+      </div>
     </div>
   );
 };

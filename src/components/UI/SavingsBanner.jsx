@@ -7,33 +7,20 @@ const SavingsBanner = ({ savings }) => {
 
   if (savings <= 0) return null;
 
-  if (isMinimized) {
-    return (
-      <div 
-        className="savings-banner minimized"
-        onClick={() => setIsMinimized(false)}
-      >
-        <span>💰 ${savings.toFixed(0)} ahorro</span>
-      </div>
-    );
-  }
-
   return (
-    <div className="savings-banner">
-      <button 
-        className="minimize-btn"
-        onClick={() => setIsMinimized(true)}
-        title="Minimizar"
-      >
-        ✕
-      </button>
-      <div className="savings-content">
-        <span className="savings-icon">💰</span>
-        <div className="savings-text">
-          <strong>Ahorras ${savings.toFixed(0)} MXN vs taxi</strong>
-          <small>Más ecológico 🌱</small>
+    <div 
+      className={`value-indicator ${isMinimized ? 'minimized' : ''}`}
+      onClick={() => setIsMinimized(!isMinimized)}
+    >
+      {!isMinimized ? (
+        <div className="value-content">
+          <span className="value-label">ECONOMY GAIN</span>
+          <span className="value-amount">${savings.toFixed(0)} MXN</span>
+          <span className="value-context">VS PRIVATE TRANSPORT</span>
         </div>
-      </div>
+      ) : (
+        <span className="value-amount-min">${savings.toFixed(0)}</span>
+      )}
     </div>
   );
 };

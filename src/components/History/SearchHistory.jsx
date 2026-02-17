@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { formatDate, truncateText } from '../../utils/helpers';
+import './SearchHistory.css'; // Asegúrate de vincular los estilos refinados
 
 const SearchHistory = ({ 
   history, 
@@ -11,40 +12,44 @@ const SearchHistory = ({
   if (!history || history.length === 0) return null;
 
   return (
-    <div className="history-container">
-      <div className="history-header">
-        <h3>📜 Búsquedas recientes</h3>
-        <button className="clear-history-btn" onClick={onClear}>
-          🗑️ Limpiar historial
+    <div className="search-history">
+      <header className="history-header">
+        <h3 className="section-title">RECENT SEARCHES</h3>
+        <button className="text-action-btn" onClick={onClear}>
+          CLEAR ALL
         </button>
-      </div>
-      <div className="history-list">
+      </header>
+      
+      <ul className="history-list">
         {history.map((item, index) => (
-          <div 
+          <li 
             key={index} 
-            className="history-item"
+            className="history-row"
             onClick={() => onSelectItem(item)}
           >
-            <div className="history-route">
-              <span className="history-origin">
-                📍 {truncateText(item.origin.split(',')[0], 30)}
+            <div className="route-main">
+              <span className="location-name">
+                {truncateText(item.origin.split(',')[0], 35)}
               </span>
-              <span className="history-arrow">→</span>
-              <span className="history-destination">
-                🏁 {truncateText(item.destination.split(',')[0], 30)}
+              <span className="route-divider">—</span>
+              <span className="location-name">
+                {truncateText(item.destination.split(',')[0], 35)}
               </span>
             </div>
-            <div className="history-meta">
-              <small>{formatDate(item.date)}</small>
+
+            <div className="route-details">
               {item.bestRoute && (
-                <small className="history-best">
-                  ⭐ {truncateText(item.bestRoute, 25)}
-                </small>
+                <span className="route-tag">
+                  {truncateText(item.bestRoute, 30)}
+                </span>
               )}
+              <time className="route-timestamp">
+                {formatDate(item.date)}
+              </time>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
