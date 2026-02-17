@@ -351,18 +351,24 @@ body {
   padding-bottom: var(--space-md);
 }
 
+/* ========================================
+   MAP CONTAINER: WINDOW TO DATA
+   ======================================== */
 .map-container-fixed {
   width: 100%;
-  min-height: 45dvh; /* El mapa nunca será más pequeño que esto en móvil */
-  flex: 1; /* LA MAGIA: Si no hay resultados abajo, el mapa se expande como un resorte */
+  height: 45vh; /* Fallback para navegadores antiguos */
+  height: 45dvh; /* Altura base estricta para que Google Maps sepa cuánto medir */
+  flex-grow: 1; /* Si la lista de rutas desaparece, esto hace que el mapa crezca */
+  display: flex; /* EL SECRETO: Fuerza a los hijos a respetar el contenedor */
   background: var(--bg-secondary);
   border: var(--ui-border);
-  position: relative; /* Importante para que el iframe/canvas de Google Maps se posicione bien */
-  overflow: hidden; /* Evita que el mapa se desborde si calcula mal su tamaño */
+  position: relative; 
+  overflow: hidden; 
 }
 
-/* Aseguramos que el div interno de React/Google Maps llene el nuevo espacio elástico */
+/* Forzamos al lienzo interno de Google Maps a llenarlo todo sin colapsar */
 .map-container-fixed > div {
+  flex: 1;
   width: 100% !important;
   height: 100% !important;
 }
@@ -595,4 +601,96 @@ color: var(--fg-secondary); }
   .results-container::-webkit-scrollbar-track { background: transparent; }
   .results-container::-webkit-scrollbar-thumb { background: var(--border-fine); }
   .results-container::-webkit-scrollbar-thumb:hover { background: var(--fg-secondary); }
+}
+/* ========================================
+   ROUTE TIMELINE (STEP DETAILS)
+   ======================================== */
+.route-timeline-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-fine);
+  cursor: default;
+}
+
+/* Título de sección premium */
+.timeline-header {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cada paso es un nodo flexible */
+.timeline-node {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+}
+
+/* --- LA GRÁFICA DEL TIMELINE --- */
+.timeline-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16px; /* Ancho fijo para alinear perfectamente la línea */
+}
+
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--fg-primary);
+  flex-shrink: 0;
+  margin-top: 0.4rem; /* Lo alinea con la primera línea de texto */
+  /* Efecto de anillo hueco elegante */
+  border: 2px solid var(--bg-primary); 
+  box-shadow: 0 0 0 1px var(--fg-primary); 
+}
+
+.timeline-line {
+  width: 1px;
+  flex-grow: 1; /* Estira la línea hasta el siguiente nodo */
+  background-color: var(--border-fine);
+  margin: 4px 0;
+}
+
+/* --- EL CONTENIDO --- */
+.timeline-content {
+  padding-bottom: 1.5rem; /* Espacio antes del siguiente paso */
+  flex: 1;
+}
+
+/* Quitamos el padding inferior al último elemento para no generar espacio extra */
+.timeline-node:last-child .timeline-content {
+  padding-bottom: 0;
+}
+
+/* Formateando el HTML que inyecta Google Maps (dangerouslySetInnerHTML) */
+.timeline-instruction {
+  font-size: 0.85rem;
+  color: var(--fg-primary);
+  line-height: 1.5;
+}
+
+/* Google Maps suele devolver textos en negrita dentro de etiquetas <b> */
+.timeline-instruction b {
+  font-weight: 700;
+  color: var(--fg-primary);
+}
+
+/* La duración como un metadato técnico */
+.timeline-duration {
+  font-size: 0.6rem;
+  color: var(--fg-secondary);
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  text-transform: uppercase;
 }
